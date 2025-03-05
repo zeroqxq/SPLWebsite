@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документация SPL Code</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Основные стили */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin: 10px 0 0;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: #4CAF50;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #4CAF50;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .documentation-content {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .documentation-content p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Кнопка "Наверх" */
+        #scrollToTop {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.8;
+            z-index: 1000;
+        }
+
+        #scrollToTop:hover {
+            background-color: #45a049;
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        #scrollToTop.show {
+            display: block;
+            animation: fadeInButton 0.5s ease;
+        }
+
+        @keyframes fadeInButton {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 0.8;
+                transform: translateY(0);
+            }
+        }
+
+        /* Медиа-запросы для мобильных устройств */
+        @media (min-width: 768px) {
+            header h1 {
+                font-size: 3.5rem;
+            }
+
+            header p {
+                font-size: 1.5rem;
+            }
+
+            nav a {
+                font-size: 1rem;
+                margin: 0 20px;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 1.1rem;
+            }
+
+            #scrollToTop {
+                font-size: 2rem;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Документация SPL на русском</h1>
+    <p>Официальная документация по языку программирования SPL Code</p>
+</header>
+
+<nav>
+    <a href="index.html">Главная</a>
+    <a href="index.html#about">Общие сведения</a>
+    <a href="docs.html">Документация</a>
+    <a href="index.html#examples">Примеры</a>
+    <a href="index.html#download">Скачать</a>
+    <a href="index.html#contact">Контакты</a>
+</nav>
+
+<div class="container">
+    <section>
+        <h2>Документация SPL Code</h2>
+        <a href="#" class="btn">Скачать документацию</a>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">Документация будет скачана в формате .md</p>
+    </section>
+
+    <section class="documentation-content">
+        <h2>Содержание документации</h2>
+        <p>
+            Здесь будет размещена документация по языку программирования SPL Code.
+            Пока этот раздел пуст, но в ближайшее время он будет заполнен.
+        </p>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2025 SPL Code. Все права защищены.</p>
+</footer>
+
+<!-- Кнопка "Наверх" -->
+<button id="scrollToTop" title="Наверх">↑</button>
+
+<script>
+    // Скрипт для кнопки "Наверх"
+    const scrollToTopButton = document.getElementById("scrollToTop");
+
+    window.onscroll = () => {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            scrollToTopButton.style.display = "block";
+            scrollToTopButton.classList.add("show");
+        } else {
+            scrollToTopButton.style.display = "none";
+            scrollToTopButton.classList.remove("show");
+        }
+    };
+
+    scrollToTopButton.onclick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth" // Плавная прокрутка
+        });
+    };
+</script>
+
+</body>
+</html>

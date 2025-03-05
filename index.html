@@ -153,21 +153,41 @@
         #scrollToTop {
             display: none;
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 30px;
+            right: 30px;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 50%;
-            padding: 10px;
+            padding: 15px;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.8;
+            z-index: 1000;
         }
 
         #scrollToTop:hover {
             background-color: #45a049;
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        #scrollToTop.show {
+            display: block;
+            animation: fadeInButton 0.5s ease;
+        }
+
+        @keyframes fadeInButton {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 0.8;
+                transform: translateY(0);
+            }
         }
 
         /* Интерактивные элементы */
@@ -184,6 +204,7 @@
             border-radius: 8px;
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
 
         .feature:hover, .benefit:hover {
@@ -289,6 +310,11 @@
                 font-size: 1.2rem;
                 padding: 15px 30px;
             }
+
+            #scrollToTop {
+                font-size: 2rem;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -302,7 +328,7 @@
 <nav>
     <a href="#home">Главная</a>
     <a href="#about">Общие сведения</a>
-    <a href="#docs">Документация</a>
+    <a href="docs.html">Документация</a>
     <a href="#examples">Примеры</a>
     <a href="#download">Скачать</a>
     <a href="#contact">Контакты</a>
@@ -319,15 +345,15 @@
         <h2>Общие сведения</h2>
         <p>SPL Code — это язык программирования, который сочетает в себе простоту синтаксиса и мощь современных технологий. Вот почему SPL Code — отличный выбор для изучения в качестве первого языка программирования:</p>
         <div class="features">
-            <div class="feature">
+            <div class="feature" onclick="showPopup('Простота изучения', 'SPL Code имеет интуитивно понятный синтаксис, который легко освоить даже новичкам.')">
                 <h3>🎓 Простота изучения</h3>
                 <p>SPL Code имеет интуитивно понятный синтаксис, который легко освоить даже новичкам.</p>
             </div>
-            <div class="feature">
+            <div class="feature" onclick="showPopup('Идеальный первый язык', 'SPL Code учит основам программирования, которые пригодятся при изучении других языков.')">
                 <h3>📚 Идеальный первый язык</h3>
                 <p>SPL Code учит основам программирования, которые пригодятся при изучении других языков.</p>
             </div>
-            <div class="feature">
+            <div class="feature" onclick="showPopup('Быстрый старт', 'Вы сможете написать свою первую программу уже через 10 минут после начала изучения.')">
                 <h3>🚀 Быстрый старт</h3>
                 <p>Вы сможете написать свою первую программу уже через 10 минут после начала изучения.</p>
             </div>
@@ -337,7 +363,7 @@
     <section id="docs">
         <h2>Документация</h2>
         <p>Ознакомьтесь с официальной документацией, чтобы узнать больше о синтаксисе, функциях и возможностях SPL Code.</p>
-        <p><a href="#" class="btn">Читать документацию</a></p>
+        <p><a href="docs.html" class="btn">Читать документацию</a></p>
     </section>
 
     <section id="examples">
@@ -373,11 +399,19 @@ print("Hello world")
 </div>
 
 <footer>
-    <p>&copy; 2023 SPL Code. Все права защищены.</p>
+    <p>&copy; 2025 SPL Code. Все права защищены.</p>
 </footer>
 
 <!-- Кнопка "Наверх" -->
 <button id="scrollToTop" title="Наверх">↑</button>
+
+<!-- Всплывающая карточка -->
+<div class="overlay" id="overlay"></div>
+<div class="popup-card" id="popupCard">
+    <button class="close-btn" onclick="closePopup()">×</button>
+    <h3 id="popupTitle"></h3>
+    <p id="popupContent"></p>
+</div>
 
 <script>
     // Скрипт для кнопки "Наверх"
@@ -386,15 +420,37 @@ print("Hello world")
     window.onscroll = () => {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
             scrollToTopButton.style.display = "block";
+            scrollToTopButton.classList.add("show");
         } else {
             scrollToTopButton.style.display = "none";
+            scrollToTopButton.classList.remove("show");
         }
     };
 
     scrollToTopButton.onclick = () => {
-        document.body.scrollTop = 0; // Для Safari
-        document.documentElement.scrollTop = 0; // Для других браузеров
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth" // Плавная прокрутка
+        });
     };
+
+    // Скрипт для всплывающих карточек
+    const overlay = document.getElementById("overlay");
+    const popupCard = document.getElementById("popupCard");
+    const popupTitle = document.getElementById("popupTitle");
+    const popupContent = document.getElementById("popupContent");
+
+    function showPopup(title, content) {
+        popupTitle.textContent = title;
+        popupContent.textContent = content;
+        overlay.classList.add("show");
+        popupCard.classList.add("show");
+    }
+
+    function closePopup() {
+        overlay.classList.remove("show");
+        popupCard.classList.remove("show");
+    }
 </script>
 
 </body>
