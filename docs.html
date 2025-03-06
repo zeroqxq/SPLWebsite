@@ -215,6 +215,40 @@
                 padding: 20px;
             }
         }
+
+        /* Стили для поиска */
+        .search-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .search-container input {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 10px;
+        }
+
+        .search-container button:hover {
+            background-color: #45a049;
+        }
+
+        .highlight {
+            background-color: yellow;
+            transition: background-color 3s ease;
+        }
     </style>
 </head>
 <body>
@@ -234,6 +268,11 @@
 </nav>
 
 <div class="container">
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Поиск по странице..." onkeydown="handleKeyDown(event)">
+        <button onclick="searchPage()">Найти</button>
+    </div>
+
     <section>
         <h2>Документация SPL Code</h2>
         <a href="#" class="btn">Скачать документацию</a>
@@ -276,6 +315,45 @@
             behavior: "smooth" // Плавная прокрутка
         });
     };
+
+    // Скрипт для поиска по странице
+    function searchPage() {
+        const searchText = document.getElementById("searchInput").value.toLowerCase();
+        const contentElement = document.querySelector(".documentation-content");
+        const content = contentElement.innerText.toLowerCase();
+        const regex = new RegExp(searchText, "gi");
+
+        if (content.match(regex)) {
+            // Убираем предыдущие выделения
+            const highlightedElements = contentElement.querySelectorAll(".highlight");
+            highlightedElements.forEach(el => {
+                el.classList.remove("highlight");
+            });
+
+            // Выделяем новые совпадения
+            contentElement.innerHTML = contentElement.innerHTML.replace(regex, match => `<span class="highlight">${match}</span>`);
+
+            // Прокручиваем страницу к первому найденному элементу
+            const firstHighlight = contentElement.querySelector(".highlight");
+            if (firstHighlight) {
+                firstHighlight.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                // Убираем выделение через 3 секунды
+                setTimeout(() => {
+                    firstHighlight.classList.remove("highlight");
+                }, 3000);
+            }
+        } else {
+            alert("Ничего не найдено");
+        }
+    }
+
+    // Обработчик нажатия клавиши Enter
+    function handleKeyDown(event) {
+        if (event.key === "Enter") {
+            searchPage();
+        }
+    }
 </script>
 
 </body>
